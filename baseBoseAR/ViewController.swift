@@ -18,28 +18,27 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     private var token: ListenerToken?
     @IBOutlet weak var pitchLabel: UILabel!
     var device: WearableDevice? { return session.device }
-    
     var goodSoundEffect: AVAudioPlayer?
     var badSoundEffect: AVAudioPlayer?
     var playedWhichSound = "none"
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         startSearch()
     }
     
-    func startSearch() {
-        
+    func startSearch()
+    {
         BoseWearable.shared.startDeviceSearch(mode: .alwaysShowUI) { result in
             switch result {
             case .success(let session):
-                
                 self.session = session
                 self.session.delegate = self
+                
+                // When actually opened, we set up sensors and gestures.
+                
                 self.session.open()
                 self.sensorDispatch.handler = self
-                
             case .failure(let error):
                 print("failure \(error.localizedDescription)")
             case .cancelled:
@@ -77,7 +76,8 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         }
     }
     
-    private func wearableDeviceEvent(_ event: WearableDeviceEvent) {
+    private func wearableDeviceEvent(_ event: WearableDeviceEvent)
+    {
         switch event {
         case .didFailToWriteSensorConfiguration(let error):
             // Show an error if we were unable to set the sensor configuration.
@@ -96,8 +96,12 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         }
     }
     
-    func sessionDidOpen(_ session: WearableDeviceSession) {
+    func sessionDidOpen(_ session: WearableDeviceSession)
+    {
         print("Session did open.")
+        
+        //Now that we have a session, let's set up the device to get events.
+        
         self.configureGestures()
         self.listenForSensors()
         self.listenForWearableDeviceEvents()
@@ -113,7 +117,8 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         }
     }
     
-    func receivedGesture(type: GestureType, timestamp: SensorTimestamp) {
+    func receivedGesture(type: GestureType, timestamp: SensorTimestamp)
+    {
         switch type {
         case .doubleTap:
             print("double-tap.")
@@ -130,11 +135,13 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     func receivedGameRotation(quaternion: Quaternion, timestamp: SensorTimestamp)
     {
         let thisPitch = quaternion.pitch
-        if thisPitch >  0.3 || thisPitch < -0.2 {
+        if thisPitch >  0.3 || thisPitch < -0.2
+        {
             self.pitchLabel.text = "BAD"
             self.pitchLabel.textColor = UIColor.white
             self.view.backgroundColor = UIColor.red
-            if playedWhichSound != "bad" {
+            if playedWhichSound != "bad"
+            {
                 playSoundEffect(isGood: false)
                 playedWhichSound = "bad"
             }
@@ -143,7 +150,8 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
             self.pitchLabel.text = "GOOD"
             self.view.backgroundColor = UIColor.green
             self.pitchLabel.textColor = UIColor.black
-            if playedWhichSound != "good" {
+            if playedWhichSound != "good"
+            {
                 playSoundEffect(isGood: true)
                 playedWhichSound = "good"
             }
@@ -151,7 +159,8 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     }
     
     func playSoundEffect(isGood g:Bool) {
-        if g {
+        if g
+        {
             let path = Bundle.main.path(forResource: "positive.wav", ofType: nil)
             let url = URL(fileURLWithPath: path!)
             do {
@@ -171,10 +180,7 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
             }
         }
     }
-    
-    
-    
-    
+
     //MARK: - Utilities
     
     /// Utility to format radians as degrees with two decimal places and a degree symbol.
@@ -204,4 +210,3 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         return data?.map({ String(format: "%02hhX", $0) }).joined()
     }
 }
-
