@@ -21,9 +21,23 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     var goodSoundEffect: AVAudioPlayer?
     var badSoundEffect: AVAudioPlayer?
     var playedWhichSound = "none"
+    var womanHead: UIImageView!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        
+        womanHead = UIImageView(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
+        womanHead.image = UIImage(named: "head2")
+        womanHead.contentMode = .scaleAspectFit
+        womanHead.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        womanHead.layer.cornerRadius = womanHead.frame.height / 2
+        womanHead.layer.borderColor = UIColor.black.cgColor
+        womanHead.layer.masksToBounds = true
+        womanHead.layer.borderWidth = 1.0
+        womanHead.center = CGPoint(x: self.view.frame.midX, y: self.view.frame.height - 175)
+        self.view.addSubview(womanHead)
+        
         startSearch()
     }
     
@@ -90,6 +104,9 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         case .didResumeWearableSensorService:
             // Unblock the UI when the sensor service is resumed.
             print("sensor resumed.")
+        
+        case .didUpdateSensorConfiguration(let config):
+            print("Updated sensor configuration. Enabled:\(config.enabledSensors)")
             
         default:
             break
@@ -135,6 +152,10 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     func receivedGameRotation(quaternion: Quaternion, timestamp: SensorTimestamp)
     {
         let thisPitch = quaternion.pitch
+        //let deg = Double(thisPitch * 180 / .pi)
+        let simplified = -thisPitch / 1
+        womanHead.transform = CGAffineTransform(rotationAngle: CGFloat(simplified))
+        
         if thisPitch >  0.3 || thisPitch < -0.2
         {
             self.pitchLabel.text = "BAD"
