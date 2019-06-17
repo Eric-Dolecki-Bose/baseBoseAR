@@ -45,7 +45,9 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     {
         BoseWearable.shared.startDeviceSearch(mode: .alwaysShowUI) { result in
             switch result {
+                
             case .success(let session):
+                
                 self.session = session
                 self.session.delegate = self
                 
@@ -53,8 +55,10 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
                 
                 self.session.open()
                 self.sensorDispatch.handler = self
+                
             case .failure(let error):
                 print("failure \(error.localizedDescription)")
+                
             case .cancelled:
                 print("cancelled.")
             }
@@ -94,19 +98,19 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     {
         switch event {
         case .didFailToWriteSensorConfiguration(let error):
-            // Show an error if we were unable to set the sensor configuration.
             print("Couldn't set configuration error: \(error)")
             
         case .didSuspendWearableSensorService:
-            // Block the UI when the sensor service is suspended.
             print("sensor suspended.")
             
         case .didResumeWearableSensorService:
-            // Unblock the UI when the sensor service is resumed.
             print("sensor resumed.")
         
         case .didUpdateSensorConfiguration(let config):
             print("Updated sensor configuration. Enabled:\(config.enabledSensors)")
+        
+        case .didFailToWriteGestureConfiguration(let error):
+            print("Failed to write gesture config. \(error.localizedDescription)")
             
         default:
             break
@@ -204,7 +208,7 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         }
     }
 
-    //MARK: - Utilities
+    //MARK: - Utilities.
     
     /// Utility to format radians as degrees with two decimal places and a degree symbol.
     func format(radians: Double) -> String {
