@@ -21,7 +21,6 @@
 		AAEC8AB422B415B800C07DF9 /* BoseWearable.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAEC8AAC22B4156800C07DF9 /* BoseWearable.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AAEC8AB522B415B800C07DF9 /* Logging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEC8AAD22B4156800C07DF9 /* Logging.framework */; };
 		AAEC8AB622B415B800C07DF9 /* Logging.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAEC8AAD22B4156800C07DF9 /* Logging.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AAEC8ABA22B41A8F00C07DF9 /* BoseAR-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC8AB922B41A8F00C07DF9 /* BoseAR-Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,7 +50,6 @@
 		AAEC8AAB22B4156800C07DF9 /* BLECore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BLECore.framework; sourceTree = "<group>"; };
 		AAEC8AAC22B4156800C07DF9 /* BoseWearable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoseWearable.framework; sourceTree = "<group>"; };
 		AAEC8AAD22B4156800C07DF9 /* Logging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Logging.framework; sourceTree = "<group>"; };
-		AAEC8AB922B41A8F00C07DF9 /* BoseAR-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoseAR-Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +69,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5FE9633522B7CD3800A566D1 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		AAEC8A8B22B4153200C07DF9 = {
 			isa = PBXGroup;
 			children = (
@@ -90,10 +95,10 @@
 		AAEC8A9622B4153200C07DF9 /* baseBoseAR */ = {
 			isa = PBXGroup;
 			children = (
+				5FE9633522B7CD3800A566D1 /* Audio */,
 				AAEC8AA922B4156800C07DF9 /* Frameworks */,
 				AAEC8A9722B4153200C07DF9 /* AppDelegate.swift */,
 				AAEC8A9922B4153200C07DF9 /* ViewController.swift */,
-				AAEC8AB922B41A8F00C07DF9 /* BoseAR-Extensions.swift */,
 				AAEC8A9B22B4153200C07DF9 /* Main.storyboard */,
 				AAEC8A9E22B4153300C07DF9 /* Assets.xcassets */,
 				AAEC8AA022B4153300C07DF9 /* LaunchScreen.storyboard */,
@@ -219,7 +224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAEC8A9A22B4153200C07DF9 /* ViewController.swift in Sources */,
-				AAEC8ABA22B41A8F00C07DF9 /* BoseAR-Extensions.swift in Sources */,
 				AAEC8A9822B4153200C07DF9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
