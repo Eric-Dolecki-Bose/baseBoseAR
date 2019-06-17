@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5FE9633822B7D03700A566D1 /* positive.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5FE9633622B7D03700A566D1 /* positive.wav */; };
+		5FE9633922B7D03700A566D1 /* negative.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5FE9633722B7D03700A566D1 /* negative.wav */; };
 		AAEC8A9822B4153200C07DF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC8A9722B4153200C07DF9 /* AppDelegate.swift */; };
 		AAEC8A9A22B4153200C07DF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC8A9922B4153200C07DF9 /* ViewController.swift */; };
 		AAEC8A9D22B4153200C07DF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAEC8A9B22B4153200C07DF9 /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5FE9633622B7D03700A566D1 /* positive.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = positive.wav; sourceTree = "<group>"; };
+		5FE9633722B7D03700A566D1 /* negative.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = negative.wav; sourceTree = "<group>"; };
 		AAEC8A9422B4153200C07DF9 /* baseBoseAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = baseBoseAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAEC8A9722B4153200C07DF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAEC8A9922B4153200C07DF9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 		5FE9633522B7CD3800A566D1 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				5FE9633722B7D03700A566D1 /* negative.wav */,
+				5FE9633622B7D03700A566D1 /* positive.wav */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -190,9 +196,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FE9633922B7D03700A566D1 /* negative.wav in Resources */,
 				AAEC8AA222B4153300C07DF9 /* LaunchScreen.storyboard in Resources */,
 				AAEC8A9F22B4153300C07DF9 /* Assets.xcassets in Resources */,
 				AAEC8A9D22B4153200C07DF9 /* Main.storyboard in Resources */,
+				5FE9633822B7D03700A566D1 /* positive.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

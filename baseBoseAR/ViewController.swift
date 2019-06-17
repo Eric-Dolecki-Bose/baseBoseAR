@@ -9,6 +9,7 @@
 import UIKit
 import BoseWearable
 import Foundation
+import AVFoundation
 
 class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDispatchHandler
 {
@@ -17,6 +18,11 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     private var token: ListenerToken?
     @IBOutlet weak var pitchLabel: UILabel!
     var device: WearableDevice? { return session.device }
+    
+    var goodSoundEffect: AVAudioPlayer?
+    var badSoundEffect: AVAudioPlayer?
+    var playedWhichSound = "none"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,12 +134,46 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
             self.pitchLabel.text = "BAD"
             self.pitchLabel.textColor = UIColor.white
             self.view.backgroundColor = UIColor.red
+            if playedWhichSound != "bad" {
+                playSoundEffect(isGood: false)
+                playedWhichSound = "bad"
+            }
+            
         } else {
             self.pitchLabel.text = "GOOD"
             self.view.backgroundColor = UIColor.green
             self.pitchLabel.textColor = UIColor.black
+            if playedWhichSound != "good" {
+                playSoundEffect(isGood: true)
+                playedWhichSound = "good"
+            }
         }
     }
+    
+    func playSoundEffect(isGood g:Bool) {
+        if g {
+            let path = Bundle.main.path(forResource: "positive.wav", ofType: nil)
+            let url = URL(fileURLWithPath: path!)
+            do {
+                goodSoundEffect = try AVAudioPlayer(contentsOf: url)
+                goodSoundEffect?.play()
+            } catch {
+                // Could not load the file.
+            }
+        } else {
+            let path = Bundle.main.path(forResource: "negative.wav", ofType: nil)
+            let url = URL(fileURLWithPath: path!)
+            do {
+                badSoundEffect = try AVAudioPlayer(contentsOf: url)
+                badSoundEffect?.play()
+            } catch {
+                // Could not load the file.
+            }
+        }
+    }
+    
+    
+    
     
     //MARK: - Utilities
     
