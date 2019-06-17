@@ -119,7 +119,9 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         
         //Now that we have a session, let's set up the device to get events.
         
-        self.configureGestures()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.configureGestures()
+        })
         self.listenForSensors()
         self.listenForWearableDeviceEvents()
     }
