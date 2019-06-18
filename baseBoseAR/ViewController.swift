@@ -50,7 +50,7 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         
         cover = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         cover.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        cover.layer.cornerRadius = 10
+        cover.layer.cornerRadius = 50
         cover.layer.borderColor = UIColor.black.withAlphaComponent(0.8).cgColor
         cover.layer.borderWidth = 3.0
         cover.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
@@ -171,7 +171,8 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     func session(_ session: WearableDeviceSession, didCloseWithError error: Error?) {
         if error != nil {
             print("Session closed error: \(error!)")
-            if error?.localizedDescription == "The specified device has disconnected from us." {
+            if (error?.localizedDescription.contains("disconnected from us"))! {
+            //if error?.localizedDescription == "The specified device has disconnected from us." {
                 let alert = UIAlertController(title: "Disconnected", message: "Your Bose AR device has disconnected.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true)
