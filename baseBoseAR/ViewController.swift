@@ -171,6 +171,11 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     func session(_ session: WearableDeviceSession, didCloseWithError error: Error?) {
         if error != nil {
             print("Session closed error: \(error!)")
+            if error?.localizedDescription == "The specified device has disconnected from us." {
+                let alert = UIAlertController(title: "Disconnected", message: "Your Bose AR device has disconnected.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
         }
     }
     
