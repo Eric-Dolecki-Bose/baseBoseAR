@@ -22,6 +22,9 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     var badSoundEffect: AVAudioPlayer?
     var playedWhichSound = "none"
     var womanHead: UIImageView!
+    var degreeLabel: UILabel!
+    var cover: UIView!
+    var spinner: UIActivityIndicatorView!
     
     override func viewDidLoad()
     {
@@ -38,6 +41,28 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         womanHead.center = CGPoint(x: self.view.frame.midX, y: self.view.frame.height - 175)
         self.view.addSubview(womanHead)
         
+        degreeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
+        degreeLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
+        degreeLabel.textColor = UIColor.black
+        degreeLabel.textAlignment = .center
+        degreeLabel.center = CGPoint(x: self.view.frame.midX, y: womanHead.center.y + womanHead.frame.height / 2 + 10)
+        self.view.addSubview(degreeLabel)
+        
+        cover = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        cover.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        cover.layer.cornerRadius = 10
+        cover.layer.borderColor = UIColor.black.withAlphaComponent(0.8).cgColor
+        cover.layer.borderWidth = 3.0
+        cover.center = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
+        spinner = UIActivityIndicatorView(style: .whiteLarge)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.startAnimating()
+        spinner.center = CGPoint(x: cover.frame.width / 2, y: cover.frame.height / 2)
+        
+        cover.addSubview(spinner)
+        cover.isHidden = true
+        self.view.addSubview(cover)
+        
         startSearch()
     }
     
@@ -47,6 +72,9 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
             switch result {
                 
             case .success(let session):
+                
+                self.cover.isHidden = false
+                self.spinner.startAnimating()
                 
                 self.session = session
                 self.session.delegate = self
@@ -123,9 +151,15 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
         
         //Now that we have a session, let's set up the device to get events.
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.configureGestures()
         })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: {
+            self.cover.isHidden = true
+            self.spinner.stopAnimating()
+        })
+        
         self.listenForSensors()
         self.listenForWearableDeviceEvents()
     }
@@ -158,7 +192,8 @@ class ViewController: UIViewController, WearableDeviceSessionDelegate, SensorDis
     func receivedGameRotation(quaternion: Quaternion, timestamp: SensorTimestamp)
     {
         let thisPitch = quaternion.pitch
-        //let deg = Double(thisPitch * 180 / .pi)
+        let deg = Double(thisPitch * 180 / .pi)
+        degreeLabel.text = "\(format(degrees:deg))"
         let simplified = -thisPitch / 1
         womanHead.transform = CGAffineTransform(rotationAngle: CGFloat(simplified))
         
