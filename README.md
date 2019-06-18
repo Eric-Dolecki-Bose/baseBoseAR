@@ -15,3 +15,5 @@ The screen turns red and green to match the state. This is for blind people who 
 ## Application
 
 ![app](./app.jpg)
+
+Slightly older application screens above. I have added two decimal place angle display for the game rotation pitch value. I have also added a spinner that displays when a session is opening and before sensor data is reported back.
